@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ContentFlow futuristic theme: deep navy, glass surfaces, blue→violet glow (matches the logo). Dark is the default. */
+:root {
+  --bg: 244 246 255;
+  --surface: 255 255 255;
+  --surface2: 236 240 252;
+  --border: 214 220 242;
+  --text: 14 18 44;
+  --muted: 96 104 140;
+  --brand: 56 108 255;
+  --brand2: 150 80 250;
+  --cyan: 6 182 212;
+  --ok: 22 163 74;
+  --warn: 217 119 6;
+  --danger: 220 38 38;
+}
+
+.dark {
+  --bg: 5 7 20;
+  --surface: 17 20 48;
+  --surface2: 26 30 66;
+  --border: 52 60 112;
+  --text: 236 240 255;
+  --muted: 148 158 200;
+  --brand: 74 140 255;
+  --brand2: 160 100 255;
+  --cyan: 34 211 238;
+  --ok: 74 222 128;
+  --warn: 251 191 36;
+  --danger: 248 113 113;
+}
+
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-bg font-sans text-text antialiased;
+  background-image:
+    radial-gradient(60rem 40rem at 85% -10%, rgb(var(--brand2) / 0.22), transparent 60%),
+    radial-gradient(50rem 36rem at -10% 10%, rgb(var(--brand) / 0.20), transparent 60%),
+    radial-gradient(40rem 30rem at 50% 110%, rgb(var(--cyan) / 0.10), transparent 60%);
+  background-attachment: fixed;
+}
+html:not(.dark) body {
+  background-image:
+    radial-gradient(60rem 40rem at 85% -10%, rgb(var(--brand2) / 0.10), transparent 60%),
+    radial-gradient(50rem 36rem at -10% 10%, rgb(var(--brand) / 0.10), transparent 60%);
+}
+::selection { background: rgb(var(--brand) / 0.35); }
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-brand to-brand2 text-white shadow-[0_0_24px_-4px_rgb(var(--brand)/0.7)] hover:brightness-110 hover:shadow-[0_0_32px_-2px_rgb(var(--brand2)/0.8)];
+  }
+  .btn-secondary {
+    @apply btn border border-border bg-surface/60 text-text backdrop-blur hover:border-brand/60 hover:bg-surface2/70;
+  }
+  .btn-ghost {
+    @apply btn text-muted hover:bg-surface2/70 hover:text-text;
+  }
+  .btn-danger {
+    @apply btn border border-danger/40 text-danger hover:bg-danger/10;
+  }
+  /* Glass card */
+  .card {
+    @apply rounded-2xl border border-border/70 bg-surface/60 p-5 shadow-[0_8px_32px_-12px_rgb(0_0_0/0.45)] backdrop-blur-xl;
+  }
+  html:not(.dark) .card { @apply bg-surface/80 shadow-[0_8px_32px_-16px_rgb(56_108_255/0.25)]; }
+  a.card:hover, .card.hover-glow:hover {
+    @apply border-brand/60 shadow-[0_0_28px_-6px_rgb(var(--brand)/0.55)];
+  }
+  .input {
+    @apply w-full rounded-xl border border-border bg-surface2/50 px-3.5 py-2.5 text-sm text-text placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-full border border-brand/30 bg-brand/10 px-2.5 py-0.5 text-xs font-semibold text-brand;
+  }
+  .badge-soon {
+    @apply inline-flex items-center rounded-full bg-warn/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-warn;
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+  .text-gradient {
+    @apply bg-gradient-to-r from-cyan via-brand to-brand2 bg-clip-text text-transparent;
+  }
+  .glass-bar {
+    @apply bg-surface/50 backdrop-blur-xl;
+  }
+}
+
+/* ============================================================ futuristic motion */
+@keyframes fx-float-a { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(8vw,6vh,0) scale(1.15); } }
+@keyframes fx-float-b { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-10vw,8vh,0) scale(1.1); } }
+@keyframes fx-float-c { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(4vw,-8vh,0) scale(1.2); } }
+@keyframes fx-grid { from { background-position: 0 0, 0 0; } to { background-position: 0 56px, 56px 0; } }
+@keyframes fx-twinkle { 0%,100% { opacity: .15; transform: translateY(0); } 50% { opacity: .9; transform: translateY(-14px); } }
+@keyframes fx-letter-in { from { opacity: 0; transform: translateY(0.5em) scale(.9); filter: blur(8px); } to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes fx-wave { from { background-position: 0% 0; } to { background-position: 300% 0; } }
+@keyframes fx-shine { from { transform: translateX(-120%) skewX(-20deg); } to { transform: translateX(220%) skewX(-20deg); } }
+@keyframes fx-pulse { 0%,100% { box-shadow: 0 0 0 0 rgb(var(--brand) / .0), 0 0 40px -10px rgb(var(--brand) / .5); } 50% { box-shadow: 0 0 0 6px rgb(var(--brand) / .06), 0 0 70px -8px rgb(var(--brand2) / .65); } }
+@keyframes fx-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes fx-reveal { from { opacity: 0; transform: translateY(28px) scale(.98); } to { opacity: 1; transform: none; } }
+
+.fx-bg { position: fixed; inset: 0; z-index: -10; overflow: hidden; pointer-events: none; }
+.fx-blob { position: absolute; border-radius: 9999px; filter: blur(90px); will-change: transform; }
+.fx-blob.a { left: -10vw; top: -8vh; width: 42vw; height: 42vw; background: rgb(var(--brand) / .28); animation: fx-float-a 22s ease-in-out infinite; }
+.fx-blob.b { right: -12vw; top: 10vh; width: 40vw; height: 40vw; background: rgb(var(--brand2) / .26); animation: fx-float-b 26s ease-in-out infinite; }
+.fx-blob.c { left: 30vw; bottom: -20vh; width: 38vw; height: 38vw; background: rgb(var(--cyan) / .16); animation: fx-float-c 30s ease-in-out infinite; }
+.fx-grid {
+  position: absolute; inset: -56px 0 0 -56px;
+  background-image: linear-gradient(rgb(var(--brand) / .10) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--brand) / .10) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 10%, transparent 70%); mask-image: radial-gradient(ellipse at 50% 30%, #000 10%, transparent 70%);
+  animation: fx-grid 6s linear infinite;
+}
+.fx-dot { position: absolute; border-radius: 9999px; background: rgb(var(--cyan)); box-shadow: 0 0 10px rgb(var(--cyan) / .9); animation: fx-twinkle ease-in-out infinite; }
+html:not(.dark) .fx-blob { opacity: .55; }
+html:not(.dark) .fx-dot { opacity: .5; background: rgb(var(--brand)); box-shadow: none; }
+
+/* Letters: each letter fades/blurs in, then a colour wave flows across the whole headline */
+.fx-word { display: inline-block; white-space: nowrap; }
+.fx-letter {
+  display: inline-block;
+  background-image: linear-gradient(90deg, rgb(var(--cyan)), rgb(var(--brand)), rgb(var(--brand2)), rgb(var(--cyan)));
+  background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  opacity: 0;
+  animation: fx-letter-in .7s cubic-bezier(.2,.8,.2,1) forwards, fx-wave 7s linear infinite;
+  animation-delay: calc(var(--i) * 32ms), calc(var(--i) * -90ms);
+}
+.text-gradient { background-size: 250% 100%; animation: fx-wave 8s linear infinite; }
+
+/* Buttons: light sweep on hover; logo and hero cards glow */
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 40%; background: linear-gradient(90deg, transparent, rgb(255 255 255 / .35), transparent); transform: translateX(-120%) skewX(-20deg); }
+.btn-primary:hover::after { animation: fx-shine .8s ease; }
+.fx-glow { animation: fx-pulse 4.5s ease-in-out infinite; }
+.fx-bob { animation: fx-bob 7s ease-in-out infinite; }
+
+/* Scroll reveal (progressive enhancement: browsers without scroll-driven animations just show everything) */
+@supports (animation-timeline: view()) {
+  .container-page .card:not(.fx-bob), .container-page h2 {
+    animation: fx-reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 45%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-blob, .fx-grid, .fx-dot, .fx-glow, .fx-bob, .text-gradient, .btn-primary:hover::after { animation: none !important; }
+  .fx-letter { animation: none !important; opacity: 1; background-size: 100% 100%; }
+  .container-page .card, .container-page h2 { animation: none !important; }
+}
