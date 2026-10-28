@@ -1,0 +1,33 @@
+CONTENTFLOW AI - COMO VER O SITE REAL NO SEU COMPUTADOR (WINDOWS)
+================================================================
+
+1) Instale o Node.js (versao LTS) em https://nodejs.org (Next, Next, Install).
+
+2) EXTRAIA este zip (botao direito > Extrair tudo). Nao abra os ficheiros de dentro do zip.
+
+3) Dentro da pasta extraida, faca duplo clique em  INICIAR-SITE.bat
+   - Na primeira vez instala as bibliotecas (alguns minutos).
+   - Depois abre o navegador em http://localhost:3000
+
+O QUE VAI VER SEM CONFIGURAR NADA
+   Paginas publicas reais: inicio, precos, contacto, privacidade, termos, cookies,
+   com o visual futurista e as animacoes.
+   Entrar / criar conta e o painel mostram a mensagem "ainda nao esta configurado":
+   isso e esperado ate ligar o Supabase.
+
+PARA VER O PAINEL (login, moedas, perfil, resultados...)
+   a) Crie um projeto em supabase.com e corra, no SQL Editor, os ficheiros da pasta
+      supabase\migrations pela ordem: 001_init.sql, 002_strategy.sql, 003_profile.sql
+   b) Abra o ficheiro .env.local no Bloco de Notas e preencha:
+        NEXT_PUBLIC_SUPABASE_URL
+        NEXT_PUBLIC_SUPABASE_ANON_KEY
+        SUPABASE_SERVICE_ROLE_KEY   (secreta: nunca a partilhe)
+   c) Feche a janela do site e volte a abrir o INICIAR-SITE.bat
+   d) Para gerar textos com IA: ANTHROPIC_API_KEY. Para pagamentos: chaves Stripe.
+
+SE ALGO CORRER MAL
+   Faca duplo clique em  VERIFICAR-ERROS.bat  e envie-me o ficheiro verificacao.txt
+   (ou uma foto do erro). O projeto ainda nunca foi compilado, por isso pode haver
+   pequenos erros que eu corrijo rapidamente.
+
+Mais detalhes: README.md
