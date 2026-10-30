@@ -1,4 +1,4 @@
-import { SiteHeader } from "@/components/marketing/SiteHeader";
+import { SiteHeader } from "@/SiteHeader";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
